@@ -15,11 +15,9 @@ return
                 return new \app\sitebuilder\LayoutRender('docs/' . \app\sitebuilder\Application::$app->language . '/' . $page);
             },
         ],
-        '^/about$' => [
-            'template' => 'about',
-            'data' => [
-                'author' => 'Novoseletskiy Serhiy'
-            ]
+        '^/new$' => [
+            'controller' => 'app\controllers\RubricController',
+            'action' => 'new'
         ],
 
         '^/$' => [
@@ -34,7 +32,6 @@ return
 
         '^/rubric/(?P<id>.*)/(?P<action>.*)$' => [
             'controller' => 'app\controllers\RubricController',
-            'actionIndex' => 1
         ],
 
         '^/rubric/(?P<action>.*)' => [

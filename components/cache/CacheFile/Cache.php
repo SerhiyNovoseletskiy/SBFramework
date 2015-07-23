@@ -79,7 +79,7 @@ class Cache implements Component{
    * @param integer [optional] $expiration
    * @return object
    */
-  public function store($key, $data, $expiration = 0) {
+  public function set($key, $data, $expiration = 0) {
     $storeData = array(
       'time'   => time(),
       'expire' => $expiration,
@@ -103,7 +103,7 @@ class Cache implements Component{
    * @param boolean [optional] $timestamp
    * @return string
    */
-  public function retrieve($key, $timestamp = false) {
+  public function get($key, $timestamp = false) {
     $cachedData = $this->_loadCache();
     (false === $timestamp) ? $type = 'data' : $type = 'time';
     if (!isset($cachedData[$key][$type])) return null; 
@@ -273,7 +273,7 @@ class Cache implements Component{
    * @return string
    */
   public function getCachePath() {
-    return $this->cahepath;
+    return $this->cachepath;
   }
 
   /**

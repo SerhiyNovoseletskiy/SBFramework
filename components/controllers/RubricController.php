@@ -15,7 +15,15 @@ use app\sitebuilder\Controller;
 
 class RubricController extends Controller {
     function newAction() {
-        return $this->render('rubric/new');
+        Application::$app->cache->setCache('rubric');
+        $page = Application::$app->cache->get('new_page');
+
+        if (!$page) {
+            $page = $this->render('rubric/new');
+            Application::$app->cache->set('new_page', $page);
+        }
+
+        return $page;
     }
 
     function deleteAction($id) {
