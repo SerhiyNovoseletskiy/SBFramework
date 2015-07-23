@@ -44,9 +44,9 @@ return [
             ]
         ], [
             'alias' => 'cache',
-            'class' => 'app\cache\CacheFile',
+            'class' => 'app\cache\CacheFile\Cache',
             'options' => [
-                'cachePath' => __DIR__ . '/../cache/'
+                'cachepath' => __DIR__ . '/../cache/'
             ]
         ]
     ]
