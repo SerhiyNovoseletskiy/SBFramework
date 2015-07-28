@@ -9,12 +9,12 @@
 namespace app\controllers;
 
 
-use app\models\Rubric;
 use app\sitebuilder\Application;
 use app\sitebuilder\Controller;
 
 class RubricController extends Controller {
     function newAction() {
+
         Application::$app->cache->setCache('rubric');
         $page = Application::$app->cache->get('new_page');
 

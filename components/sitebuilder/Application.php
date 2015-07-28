@@ -2,6 +2,8 @@
 
 namespace app\sitebuilder;
 
+use app\sitebuilder\ErrorHandler;
+
 class Application
 {
     // Посилання саме на себе
@@ -96,10 +98,15 @@ class Application
         }
     }
 
+    private function setErrorHandler() {
+        $eHandler = new ErrorHandler();
+        $eHandler->register();
+    }
+
     function run()
     {
         $route = $this->route;
-
+        $this->setErrorHandler();
         if (!empty($route)) {
             foreach ($route as $pattern => $options) {
 

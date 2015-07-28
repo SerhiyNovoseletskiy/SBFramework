@@ -12,7 +12,7 @@ return
                 ]
             ],
             'callback' => function ($page) {
-                return new \app\sitebuilder\LayoutRender('docs/' . \app\sitebuilder\Application::$app->language . '/' . $page);
+                return new \app\sitebuilder\LayoutRender('docs/' . \app\sitebuilder\Application::$app->language . '/' . $page, [], 'doc');
             },
         ],
         '^/new$' => [

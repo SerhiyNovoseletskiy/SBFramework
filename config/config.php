@@ -19,7 +19,7 @@ return [
         ],
         'css' => [
             '/assets/bootstrap/css/bootstrap.min.css',
-            '/assets/syntaxhighlighter/styles/shCoreFadeToGrey.css'
+            '/assets/syntaxhighlighter/styles/shCoreDefault.css'
         ]
     ],
     'components' => [

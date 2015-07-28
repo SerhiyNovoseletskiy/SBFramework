@@ -9,14 +9,13 @@ class Nav
     private static function navbar($navBars)
     {
         $html = '';
-        if (!empty($navBars))
-            foreach ($navBars as $navBar) {
-                $html .= '<ul class="' . $navBar['class'] . '">';
+        foreach ($navBars as $navBar) {
+            $html .= '<ul class="' . $navBar['class'] . '">';
 
-                $html .= self::items($navBar['items']);
+            $html .= self::items($navBar['items']);
 
-                $html .= '</ul>';
-            }
+            $html .= '</ul>';
+        }
 
         return $html;
     }
@@ -64,7 +63,9 @@ class Nav
 
         $html .= '<div id="w' . self::$iterator . '-collapse" class="collapse navbar-collapse">';
 
-        $html .= self::navbar($navBars);
+        if (!empty($navBars))
+            $html .= self::navbar($navBars);
+
         $html .= '</div>';
 
         $html .= '</div></div>';
