@@ -3,6 +3,7 @@
 namespace app\sitebuilder;
 
 use app\sitebuilder\ErrorHandler;
+use app\sitebuilder\exceptions\NotFoundHttpException;
 
 class Application
 {
@@ -56,14 +57,6 @@ class Application
 
 
         if (!empty($options['controller'])) {
-
-            /*if (empty($this->params)) {
-                $action = 'index';
-            } else {
-                !empty($options['actionIndex']) ? $actionIndex = $options['actionIndex'] : $actionIndex = 0;
-                $action = $this->params[$actionIndex];
-                array_splice($this->params, $actionIndex,1);
-            }*/
 
             if (empty($this->params)) {
                 !empty($options['action']) ? $action = $options['action'] : 'index';
@@ -136,6 +129,6 @@ class Application
         }
 
         // If route not found return page 404
-        echo new LayoutRender($this->errors['404']);
+        throw new NotFoundHttpException('Page not found');
     }
 }

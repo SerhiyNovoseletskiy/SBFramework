@@ -16,7 +16,7 @@
             <span class="item-number"><?= (int) $index ?>.</span>
             <span class="text"><?php if ($file !== null) echo 'in ' . $handler->htmlEncode($file); ?></span>
             <?php if ($method !== null): ?>
-                <span class="call">
+                <span class="panel-title">
                     <?php if ($file !== null) echo '&ndash;'; ?>
                     <?= ($class !== null ? '' : $handler->htmlEncode($method)) . '(' . $handler->argumentsToString($args) . ')' ?>
                 </span>
@@ -29,15 +29,14 @@
         <div class="code-wrap">
             <div class="error-line"></div>
             <?php for ($i = $begin; $i <= $end; ++$i): ?><div class="hover-line"></div><?php endfor; ?>
-            <div class="code">
-                <?php for ($i = $begin; $i <= $end; ++$i): ?><span class="lines-item"><?= (int) ($i + 1) ?></span><?php endfor; ?>
-                <pre><?php
+
+                <pre class="brush: php;"><?php
                     // fill empty lines with a whitespace to avoid rendering problems in opera
                     for ($i = $begin; $i <= $end; ++$i) {
                         echo (trim($lines[$i]) == '') ? " \n" : $handler->htmlEncode($lines[$i]);
                     }
-                ?></pre>
-            </div>
+                ?>
+                </pre>
         </div>
     <?php endif; ?>
 </li>

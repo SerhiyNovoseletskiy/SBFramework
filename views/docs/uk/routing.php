@@ -26,7 +26,7 @@
         ],
 
         // /hello/&lt;name&gt;
-        '^/hello/(.*\w)' => function ($name) {
+        '^/hello/(?P&lt;name>\w+)$' => function ($name) {
             return 'Hello '.$name;
         }
         ...
@@ -40,44 +40,38 @@
 
     return [
         ...
-        // aI = actionIndex
-        //          aI=0 aI=1
-        // /rubric/<id>/<action>
-         '^/rubric/(.*\d)/(.*\w)$' => [
+
+         '^/rubric/(?P&lt;id>\d)/(?P&lt;action>\w)$' => [
             'controller' => 'app\controllers\RubricController',
-            /*
-             * Визначаємо який з параметрів буде відповідати за екшн
-             * По замовчуванню 0, тобто перший параметр
-            */
-            'actionIndex' => 1
         ],
         ...
     ];
 
+</pre>
+<pre class="brush: php;">
     // components/controllers/RubricController.php
 
     class RubricController extends Controller {
-        function initActions() {
 
-            $this->editAction = function($id) {
+            public function editAction = function($id) {
                 $rubric = Rubric::getByPK($id);
                 return $this->render('rubric', [
                     'rubric' => $rubric
                  ]);
             };
 
-            $this->indexAction = function() {
+            public function indexAction = function() {
                 $rubrics = Rubric::getAll();
             };
 
-            $this->deleteAction = function ($id) {
+            public function deleteAction = function ($id) {
                 Rubric::getByPK($id)->delete();
             };
 
-            $this->insertAction = function () {
-                return $this->render('rubric/new');
+            public function insertAction = function () {
+                /* Деякий код */
             };
-        }
+
     }
 </pre>
 

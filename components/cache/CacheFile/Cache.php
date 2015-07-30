@@ -106,7 +106,10 @@ class Cache implements Component{
   public function get($key, $timestamp = false) {
     $cachedData = $this->_loadCache();
     (false === $timestamp) ? $type = 'data' : $type = 'time';
-    if (!isset($cachedData[$key][$type])) return null; 
+
+
+    if (!isset($cachedData[$key][$type])) return null;
+
     return unserialize($cachedData[$key][$type]);
   }
 

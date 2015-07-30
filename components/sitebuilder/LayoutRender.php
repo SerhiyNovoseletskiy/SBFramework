@@ -14,7 +14,7 @@ class LayoutRender extends Render
         parent::__construct($view, $data);
 
         if ($layout == null) {
-            $this->layout = Container::get('layout');
+            $this->layout = Application::$app->layout;
         } else {
             $this->layout = $layout;
         }
@@ -43,7 +43,7 @@ class LayoutRender extends Render
     function __toString()
     {
         ob_start();
-        require_once Container::get('layoutPath') . $this->layout . '.php';
+        require_once Application::$app->layoutPath . $this->layout . '.php';
         $this->html = ob_get_clean();
         return $this->html;
     }

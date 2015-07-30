@@ -18,8 +18,9 @@ class ErrorHandler {
     public $maxTraceSourceLines = 13;
 
     public function register() {
-        ini_set('display_errors', false);
+        ini_set('display_errors', SB_DEBUG);
         set_exception_handler([$this, 'exceptionHandle']);
+        set_error_handler([$this, 'errorHandle']);
     }
 
     public function exceptionHandle($exception) {
@@ -27,6 +28,9 @@ class ErrorHandler {
         $this->render($exception);
     }
 
+    public function errorHandle($error) {
+
+    }
 
     private function render($exception) {
         if (SB_DEBUG)
