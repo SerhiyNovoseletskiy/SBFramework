@@ -1,5 +1,4 @@
 <?php
-use app\sitebuilder\Application;
 
 return
     [
