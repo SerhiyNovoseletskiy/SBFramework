@@ -14,7 +14,7 @@ class LayoutRender extends Render
         parent::__construct($view, $data);
 
         if ($layout == null) {
-            $this->layout = Application::$app->layout;
+            $this->layout = SiteBuilder::$app->layout;
         } else {
             $this->layout = $layout;
         }
@@ -22,7 +22,7 @@ class LayoutRender extends Render
 
     private function getCssFiles()
     {
-        $css = Application::$app->assets;
+        $css = SiteBuilder::$app->assets;
         $css = $css['css'];
 
         foreach ($css as $sc) {
@@ -32,7 +32,7 @@ class LayoutRender extends Render
 
     private function getJsFiles()
     {
-        $js = Application::$app->assets;
+        $js = SiteBuilder::$app->assets;
         $js = $js['js'];
 
         foreach ($js as $j) {
@@ -43,7 +43,7 @@ class LayoutRender extends Render
     function __toString()
     {
         ob_start();
-        require_once Application::$app->layoutPath . $this->layout . '.php';
+        require_once SiteBuilder::$app->layoutPath . $this->layout . '.php';
         $this->html = ob_get_clean();
         return $this->html;
     }

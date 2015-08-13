@@ -40,9 +40,8 @@
 			{ regex: SyntaxHighlighter.regexLib.singleQuotedString,		css: 'string' },
 			{ regex: new RegExp(this.getKeywords(keywords),	'gm'),		css: 'keyword' }
 			];
-	};
-
-	Brush.prototype	= new SyntaxHighlighter.Highlighter();
+    }
+    Brush.prototype	= new SyntaxHighlighter.Highlighter();
 	Brush.aliases	= ['erl', 'erlang'];
 
 	SyntaxHighlighter.brushes.Erland = Brush;

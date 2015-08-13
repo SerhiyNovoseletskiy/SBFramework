@@ -1,4 +1,4 @@
 <?php
 return [
-    'componentsPath' => __DIR__ . '/../components/'
+    'componentsPath' => __DIR__ . '/../vendor/'
 ];

@@ -46,9 +46,8 @@
 			{ regex: new RegExp(this.getKeywords(keywords), 'gm'),		css: 'keyword' }
 		];
 		this.forHtmlScript(SyntaxHighlighter.regexLib.aspScriptTags);
-	};
-
-	Brush.prototype	= new SyntaxHighlighter.Highlighter();
+    }
+    Brush.prototype	= new SyntaxHighlighter.Highlighter();
 	Brush.aliases	= ['jfx', 'javafx'];
 
 	SyntaxHighlighter.brushes.JavaFX = Brush;

@@ -17,8 +17,8 @@ class Translate implements Component{
     }
 
     function translate($category, $value) {
-        if (file_exists($this->translatePath . '/'. $category . '/' . Application::$app->language. '.php')) {
-            $translate = require_once($this->translatePath . '/'. $category . '/' . Application::$app->language. '.php');
+        if (file_exists($this->translatePath . '/'. $category . '/' . SiteBuilder::$app->language. '.php')) {
+            $translate = require_once($this->translatePath . '/'. $category . '/' . SiteBuilder::$app->language. '.php');
 
             if (array_key_exists($value, $translate))
                 return $translate[$value];

@@ -34,7 +34,7 @@ return [
                 'host' => 'localhost',
                 'user' => 'root',
                 'password' => '',
-                'database' => 'yii'
+                'database' => 'sitebuilder'
             ]
         ], [
             'alias' => 't',

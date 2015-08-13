@@ -44,9 +44,8 @@
 			];
 
 		this.forHtmlScript(SyntaxHighlighter.regexLib.aspScriptTags);
-	};
-
-	Brush.prototype	= new SyntaxHighlighter.Highlighter();
+    }
+    Brush.prototype	= new SyntaxHighlighter.Highlighter();
 	Brush.aliases	= ['vb', 'vbnet'];
 
 	SyntaxHighlighter.brushes.Vb = Brush;

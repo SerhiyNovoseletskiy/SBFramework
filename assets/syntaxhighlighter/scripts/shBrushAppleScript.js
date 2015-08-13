@@ -63,9 +63,8 @@
 			{ regex: new RegExp(this.getKeywords(keywords), 'gm'), css: 'keyword' },
 			{ regex: new RegExp(this.getKeywords(ordinals), 'gm'), css: 'keyword' }
 		];
-	};
-
-	Brush.prototype = new SyntaxHighlighter.Highlighter();
+    }
+    Brush.prototype = new SyntaxHighlighter.Highlighter();
 	Brush.aliases = ['applescript'];
 
 	SyntaxHighlighter.brushes.AppleScript = Brush;

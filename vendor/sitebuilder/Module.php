@@ -9,12 +9,7 @@
 namespace app\sitebuilder;
 
 
-class Module
+abstract class Module
 {
-    public function access()
-    {
-        return [
-            'access' => true
-        ];
-    }
+    abstract function route();
 }

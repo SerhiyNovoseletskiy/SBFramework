@@ -16,7 +16,7 @@ class Debug
 
     function __destruct()
     {
-        echo new Render('debug', [
+        echo new Render('debug/debug', [
             'timeBegin' => $this->timeBegin,
             'timeEnd' => microtime(),
         ]);

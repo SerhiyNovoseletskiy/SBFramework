@@ -17,17 +17,20 @@ use app\widgets\bootstrap\Nav;
 <div class="container">
     <?= Nav::widget([
         'class' => 'navbar-default',
-        'brandLabel' => \app\sitebuilder\Container::get('siteName') . ' ( '.\app\sitebuilder\SiteBuilder::$app->t->translate('documentation', 'Documentation').' )',
+        'brandLabel' => \app\sitebuilder\Container::get('siteName') . ' - Панель управління',
         'brandUrl' => '/',
-
+        'navBars' => [
+            [
+                'class' => 'nav navbar-nav navbar-right',
+                'items' => [
+                    ['label' => 'Документація', 'url' => '/docs'],
+                ]
+            ]
+        ]
     ]) ?>
 
-    <div class="col-md-9">
+    <div>
         <?= $this->content ?>
-    </div>
-
-    <div class="col-md-3">
-
     </div>
 </div>
 </body>

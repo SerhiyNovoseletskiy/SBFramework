@@ -22,6 +22,14 @@ abstract class Model
 
     public $errors = [];
 
+    public function __construct($params = null) {
+        if ($params !== null) {
+            foreach($params as $key => $value) {
+                $this->$key = $value;
+            }
+        }
+    }
+
     public abstract function tableName();
 
     public function primaryKey()
@@ -104,15 +112,17 @@ abstract class Model
             self::$query = 'INSERT INTO `' . $this->tableName() . '` (' . $this->getQueryFields(/*getPrimaryKey = */
                     false) . ') VALUES (' . $this->getInsertValues() . ')';
 
-            Application::$app->db->executeQuery(self::$query);
+            SiteBuilder::$app->db->executeQuery(self::$query);
 
-            $this->$pk = mysqli_insert_id(Application::$app->db->db);
+            $this->$pk = mysqli_insert_id(SiteBuilder::$app->db->db);
         } // Якщо не новий
         else {
             self::$query = 'UPDATE `' . $this->tableName() . '` SET ' . $this->getUpdateValues() . ' WHERE `' . $pk . '` = ' . $this->$pk . '';
             echo self::$query;
-            Application::$app->db->executeQuery(self::$query);
+            SiteBuilder::$app->db->executeQuery(self::$query);
         }
+
+        $this->isNew = false;
     }
 
     public function delete()
@@ -121,7 +131,7 @@ abstract class Model
 
         self::$query = 'DELETE FROM ' . $this->tableName() . ' WHERE `' . $pk . '` = ' . $this->$pk . '';
 
-        Application::$app->db->executeQuery(self::$query);
+        SiteBuilder::$app->db->executeQuery(self::$query);
         $this->isNew = true;
         return $this->$pk;
     }
@@ -202,7 +212,7 @@ abstract class Model
 
         self::$query = 'SELECT ' . self::$self->getQueryFields() . 'FROM `' . self::$self->tableName() . '` WHERE `' . self::$self->primaryKey() . '` = ' . $pk . '';
 
-        $queryResult = Application::$app->db->executeQuery(self::$query);
+        $queryResult = SiteBuilder::$app->db->executeQuery(self::$query);
 
 
         $result = mysqli_fetch_object($queryResult, get_called_class());
@@ -251,7 +261,7 @@ abstract class Model
             }
         }
 
-        $res = Application::$app->db->executeQuery(self::$query);
+        $res = SiteBuilder::$app->db->executeQuery(self::$query);
 
         while ($r = mysqli_fetch_object($res, get_called_class())) {
 
@@ -310,7 +320,7 @@ abstract class Model
 
             $result = [];
 
-            $res = Application::$app->db->executeQuery(self::$query);
+            $res = SiteBuilder::$app->db->executeQuery(self::$query);
 
             while ($r = mysqli_fetch_object($res, get_called_class())) {
 
@@ -348,7 +358,7 @@ abstract class Model
 
             $result = [];
 
-            $res = Application::$app->db->executeQuery(self::$query);
+            $res = SiteBuilder::$app->db->executeQuery(self::$query);
 
             while ($r = mysqli_fetch_object($res, get_called_class())) {
 
@@ -399,7 +409,7 @@ abstract class Model
 
         self::$query = substr(self::$query, 0, strlen(self::$query) - 4);
 
-        return Application::$app->db->executeQuery(self::$query);
+        return SiteBuilder::$app->db->executeQuery(self::$query);
     }
 
     public static function deleteWhere($params)
@@ -414,6 +424,6 @@ abstract class Model
 
         self::$query = substr(self::$query, 0, strlen(self::$query) - 4);
 
-        return Application::$app->db->executeQuery(self::$query);
+        return SiteBuilder::$app->db->executeQuery(self::$query);
     }
 }

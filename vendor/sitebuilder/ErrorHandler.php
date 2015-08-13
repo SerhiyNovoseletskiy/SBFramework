@@ -34,7 +34,7 @@ class ErrorHandler {
 
     private function render($exception) {
         if (SB_DEBUG)
-        echo new Render('error', [
+        echo new Render('errors/error', [
             'exception' => $exception,
             'handler' => $this
         ]);
@@ -145,7 +145,7 @@ class ErrorHandler {
             ob_start();
             ob_implicit_flush(false);
             extract($_params_, EXTR_OVERWRITE);
-            require __DIR__. '/../../views/callStackItem.php';
+            require __DIR__. '/../../views/errors/callStackItem.php';
 
             return ob_get_clean();
 

@@ -45,9 +45,8 @@
 			left	: /(&lt;|<)%[@!=]?/g, 
 			right	: /%(&gt;|>)/g 
 		});
-	};
-
-	Brush.prototype	= new SyntaxHighlighter.Highlighter();
+    }
+    Brush.prototype	= new SyntaxHighlighter.Highlighter();
 	Brush.aliases	= ['java'];
 
 	SyntaxHighlighter.brushes.Java = Brush;

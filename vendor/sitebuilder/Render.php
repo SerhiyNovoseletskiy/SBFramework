@@ -13,15 +13,15 @@ class Render
 
     public function __construct($view, $data = [])
     {
-        if (file_exists(Application::$app->viewsPath . $view . '.php')) {
+        if (file_exists(SiteBuilder::$app->viewsPath . $view . '.php')) {
             // Витягуємо вмістиме масиву в таблицю змінних
             extract($data);
 
             ob_start();
-            require_once Application::$app->viewsPath . $view . '.php';
+            require_once SiteBuilder::$app->viewsPath . $view . '.php';
             $this->content = ob_get_clean();
         } else
-            throw new NotFoundHttpException('View ' . $view .  ' not found. Path to views '.Application::$app->viewsPath.'');
+            throw new NotFoundHttpException('View "' . $view .  '" not found. Path to views "'.SiteBuilder::$app->viewsPath.'"');
     }
 
     public function __toString()

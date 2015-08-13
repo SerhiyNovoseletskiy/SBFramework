@@ -43,9 +43,8 @@
 			];
 
 		this.forHtmlScript(SyntaxHighlighter.regexLib.aspScriptTags);
-	};
-
-	Brush.prototype	= new SyntaxHighlighter.Highlighter();
+    }
+    Brush.prototype	= new SyntaxHighlighter.Highlighter();
 	Brush.aliases	= ['ruby', 'rails', 'ror', 'rb'];
 
 	SyntaxHighlighter.brushes.Ruby = Brush;
