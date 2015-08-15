@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: serhiy
- * Date: 22.07.15
- * Time: 15:30
- */
-
 namespace app\sitebuilder;
 
 

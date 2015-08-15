@@ -5,6 +5,7 @@ namespace modules\Admin;
 
 
 use app\sitebuilder\Module;
+use app\sitebuilder\Translate;
 
 class AdminModule extends Module
 {

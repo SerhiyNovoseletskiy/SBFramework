@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: serhiy
- * Date: 23.07.15
- * Time: 1:00
+ * @author Novoseletskiy Serhiy <novoseletskiyserhiy@gmail.com>
  */
 
 namespace app\sitebuilder;
@@ -13,6 +10,11 @@ class Translate
 {
     private static $translates = [];
 
+    /**
+     * @param string $category
+     * @param string $value
+     * @return String
+     * */
     static function translate($category, $value)
     {
         if (!array_key_exists($category, self::$translates)) {

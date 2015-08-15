@@ -6,9 +6,7 @@ use app\sitebuilder\exceptions\NotFoundHttpException;
 
 /**
  * Application is the base class for our web application
- *
- * @property Application $app Link for self
- *
+ * @author Novoseletskiy Serhiy <novoseletskiyserhiy@gmail.com>
  */
 class Application
 {
@@ -42,19 +40,14 @@ class Application
 
 
 
-
-    private function setErrorHandler()
-    {
-        $eHandler = new ErrorHandler();
-        $eHandler->register();
-    }
-
     /**
      * @throws NotFoundHttpException
      */
     function run()
     {
-        $this->setErrorHandler();
+        // Set ErrorHandler
+        $eHandler = new ErrorHandler();
+        $eHandler->register();
 
         RouteManager::route();
     }

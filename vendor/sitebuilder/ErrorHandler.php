@@ -3,8 +3,6 @@
 namespace app\sitebuilder;
 
 
-use app\sitebuilder\exceptions\Exception;
-
 class ErrorHandler {
     private $exception;
 
