@@ -18,6 +18,7 @@ class RouteManager
 
     static function  route()
     {
+        $is_found = false;
         $route = SiteBuilder::$app->route;
 
         if (!empty($route)) {
@@ -42,17 +43,14 @@ class RouteManager
 
                     self::getCallback($options);
                     echo self::$callback;
-
-                    break;
-                } else {
-                    // If route not found return page 404
-                    throw new NotFoundHttpException('Page not found');
-
+                    $is_found = true;
                     break;
                 }
             }
         }
 
+        if (!$is_found)
+            throw new NotFoundHttpException('Page not found');
     }
 
     // Get callback from routing list
@@ -116,7 +114,7 @@ class RouteManager
         }
 
         if (!empty($options[SiteBuilder::$app->request->method])) {
-            $this->getCallback($options[SiteBuilder::$app->request->method]);
+            self::getCallback($options[SiteBuilder::$app->request->method]);
             return;
         }
 
@@ -130,8 +128,10 @@ class RouteManager
 
             if (!empty($route)) {
                 foreach ($route as $pattern => $options) {
+
                     if (preg_match_all('#' . $pattern . '#is', $url, self::$params, PREG_SET_ORDER)) {
                         self::$params = self::$params[0];
+
 
                         array_shift(self::$params);
                         !empty($options['methodAccess']) ? $methodAccess = $options['methodAccess'] : $methodAccess = '*';
@@ -142,14 +142,11 @@ class RouteManager
 
                         self::getCallback($options);
                         return self::$callback;
-                    } else {
-                        // If route not found return page 404
-                        throw new NotFoundHttpException('Page not found');
-
-                        break;
                     }
                 }
             }
+
+                throw new NotFoundHttpException('Page not found');
         }
     }
 }
