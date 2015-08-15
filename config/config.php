@@ -1,16 +1,17 @@
 <?php
 use app\sitebuilder\Database;
+use app\sitebuilder\Request;
+use app\cache\CacheFile\Cache;
 
 return [
     'siteName' => 'SB Framework',
     'language' => 'uk',
     'layoutPath' => __DIR__ . '/../layouts/',
     'viewsPath' => __DIR__ . '/../views/',
+    'translatePath' => __DIR__ . '/../translates/',
     'layout' => 'index',
     'route' => require_once(__DIR__ . '/route.php'),
-    'errors' => [
-        '404' => '404'
-    ],
+
     'assets' => [
         'js' => [
             '/assets/jquery/jquery.min.js',
@@ -27,7 +28,7 @@ return [
     'components' => [
         [
             'alias' => 'request',
-            'class' => 'app\sitebuilder\Request'
+            'class' => Request::class
         ],
         [
             'alias' => 'db',
@@ -39,14 +40,8 @@ return [
                 'database' => 'sitebuilder'
             ]
         ], [
-            'alias' => 't',
-            'class' => 'app\sitebuilder\Translate',
-            'options' => [
-                'translatePath' => __DIR__ . '/../translates'
-            ]
-        ], [
             'alias' => 'cache',
-            'class' => 'app\cache\CacheFile\Cache',
+            'class' => Cache::class,
             'options' => [
                 'cachepath' => __DIR__ . '/../cache/'
             ]

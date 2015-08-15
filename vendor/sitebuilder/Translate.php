@@ -9,19 +9,19 @@
 namespace app\sitebuilder;
 
 
-class Translate implements Component{
-    public $translatePath;
+class Translate
+{
+    private static $translates = [];
 
-    function init() {
+    static function translate($category, $value)
+    {
+        if (!array_key_exists($category, self::$translates)) {
+            if (file_exists(Container::get('translatePath') . '/' . $category . '/' . SiteBuilder::$app->language . '.php')) {
+                self::$translates[$category] = require_once(Container::get('translatePath') . '/' . $category . '/' . SiteBuilder::$app->language . '.php');
 
-    }
-
-    function translate($category, $value) {
-        if (file_exists($this->translatePath . '/'. $category . '/' . SiteBuilder::$app->language. '.php')) {
-            $translate = require_once($this->translatePath . '/'. $category . '/' . SiteBuilder::$app->language. '.php');
-
-            if (array_key_exists($value, $translate))
-                return $translate[$value];
+                if (array_key_exists($value, self::$translates[$category]))
+                    return self::$translates[$category][$value];
+            }
         }
 
         return $value;
