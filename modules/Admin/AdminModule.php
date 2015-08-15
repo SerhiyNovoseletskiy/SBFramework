@@ -11,11 +11,11 @@ class AdminModule extends Module
     function route()
     {
         return [
-            '^/categories$' => [
+            '^categories$' => [
                 'controller' => 'modules\Admin\controllers\CategoryController'
             ],
 
-            '^/category/(?P<id>\d+)$' => [
+            '^category/(?P<id>\d+)$' => [
                 'GET' => [
                     'controller' => 'modules\Admin\controllers\CategoryController',
                     'action' => 'edit'
@@ -26,7 +26,7 @@ class AdminModule extends Module
                 ]
             ],
 
-            '^/category/(?P<action>\w+)$' => [
+            '^category/(?P<action>\w+)$' => [
                 'GET' => [
                     'controller' => 'modules\Admin\controllers\CategoryController',
                     'action' => 'add'
@@ -37,16 +37,16 @@ class AdminModule extends Module
                 ]
             ],
 
-            '^/category/(?P<id>\d+)/(?P<action>\w+)' => [
+            '^category/(?P<id>\d+)/(?P<action>\w+)' => [
                 'controller' => 'modules\Admin\controllers\CategoryController',
             ],
 
-            '^/login$' => [
+            '^login$' => [
                 'controller' => 'modules\Admin\controllers\LoginController',
                 'action' => 'login'
             ],
 
-            '^/sign_in$' => [
+            '^sign_in$' => [
                 'controller' => 'modules\Admin\controllers\LoginController',
                 'action' => 'sign_in'
             ]
