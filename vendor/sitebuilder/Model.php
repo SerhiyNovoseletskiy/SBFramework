@@ -22,9 +22,10 @@ abstract class Model
 
     public $errors = [];
 
-    public function __construct($params = null) {
+    public function __construct($params = null)
+    {
         if ($params !== null) {
-            foreach($params as $key => $value) {
+            foreach ($params as $key => $value) {
                 $this->$key = $value;
             }
         }
@@ -112,14 +113,13 @@ abstract class Model
             self::$query = 'INSERT INTO `' . $this->tableName() . '` (' . $this->getQueryFields(/*getPrimaryKey = */
                     false) . ') VALUES (' . $this->getInsertValues() . ')';
 
-            SiteBuilder::$app->db->executeQuery(self::$query);
+            SiteBuilder::$app->db->query(self::$query);
 
             $this->$pk = mysqli_insert_id(SiteBuilder::$app->db->db);
         } // Якщо не новий
         else {
             self::$query = 'UPDATE `' . $this->tableName() . '` SET ' . $this->getUpdateValues() . ' WHERE `' . $pk . '` = ' . $this->$pk . '';
-            echo self::$query;
-            SiteBuilder::$app->db->executeQuery(self::$query);
+            SiteBuilder::$app->db->query(self::$query);
         }
 
         $this->isNew = false;
@@ -131,7 +131,7 @@ abstract class Model
 
         self::$query = 'DELETE FROM ' . $this->tableName() . ' WHERE `' . $pk . '` = ' . $this->$pk . '';
 
-        SiteBuilder::$app->db->executeQuery(self::$query);
+        SiteBuilder::$app->db->query(self::$query);
         $this->isNew = true;
         return $this->$pk;
     }
@@ -174,7 +174,8 @@ abstract class Model
                         $is_valid = false;
                         array_push($this->errors, ['field' => $field, 'message' => $this->messages['MAX_LENGTH']]);
                     }
-                } break;
+                }
+                    break;
 
             }
 
@@ -212,10 +213,8 @@ abstract class Model
 
         self::$query = 'SELECT ' . self::$self->getQueryFields() . 'FROM `' . self::$self->tableName() . '` WHERE `' . self::$self->primaryKey() . '` = ' . $pk . '';
 
-        $queryResult = SiteBuilder::$app->db->executeQuery(self::$query);
-
-
-        $result = mysqli_fetch_object($queryResult, get_called_class());
+        $result = SiteBuilder::$app->db->getResultQuerY(self::$query, Database::$RESULT_OBJECT, get_called_class());
+        $result = $result[0];
 
         $result->isNew = false;
 
@@ -243,7 +242,6 @@ abstract class Model
         // Our query
         self::$query = 'SELECT ' . self::$self->getQueryFields(true, $fields) . ' FROM `' . self::$self->tableName() . '`';
 
-        $result = [];
 
         if (!empty($orderBy)) {
             self::$query .= ' ORDER BY ' . $orderBy;
@@ -261,10 +259,9 @@ abstract class Model
             }
         }
 
-        $res = SiteBuilder::$app->db->executeQuery(self::$query);
+        $result = SiteBuilder::$app->db->getResultQuery(self::$query, Database::$RESULT_OBJECT, get_called_class());
 
-        while ($r = mysqli_fetch_object($res, get_called_class())) {
-
+        foreach ($result as $r) {
             // Якщо є зовнішні ключі
             if ($r->hasFK()) {
                 foreach ($r->fields as $key => $options) {
@@ -278,8 +275,6 @@ abstract class Model
                     }
                 }
             }
-
-            array_push($result, $r);
         }
 
         return $result;
@@ -318,12 +313,9 @@ abstract class Model
                 }
             }
 
-            $result = [];
+            $result = SiteBuilder::$app->db->getResultQuery(self::$query, Database::$RESULT_OBJECT, get_called_class());
 
-            $res = SiteBuilder::$app->db->executeQuery(self::$query);
-
-            while ($r = mysqli_fetch_object($res, get_called_class())) {
-
+            foreach ($result as $r) {
                 // Якщо є зовнішні ключі
                 if ($r->hasFK()) {
                     foreach ($r->fields as $key => $options) {
@@ -337,8 +329,6 @@ abstract class Model
                         }
                     }
                 }
-
-                array_push($result, $r);
             }
 
             return $result;
@@ -356,12 +346,9 @@ abstract class Model
             self::$query = $query;
 
 
-            $result = [];
+            $result = SiteBuilder::$app->db->getResultQuery(self::$query, Database::$RESULT_OBJECT, get_called_class());
 
-            $res = SiteBuilder::$app->db->executeQuery(self::$query);
-
-            while ($r = mysqli_fetch_object($res, get_called_class())) {
-
+            foreach ($result as $r) {
                 // Якщо є зовнішні ключі
                 if ($r->hasFK()) {
                     foreach ($r->fields as $key => $options) {
@@ -375,8 +362,6 @@ abstract class Model
                         }
                     }
                 }
-
-                array_push($result, $r);
             }
 
             return $result;
@@ -409,7 +394,7 @@ abstract class Model
 
         self::$query = substr(self::$query, 0, strlen(self::$query) - 4);
 
-        return SiteBuilder::$app->db->executeQuery(self::$query);
+        return SiteBuilder::$app->db->query(self::$query);
     }
 
     public static function deleteWhere($params)
@@ -424,6 +409,6 @@ abstract class Model
 
         self::$query = substr(self::$query, 0, strlen(self::$query) - 4);
 
-        return SiteBuilder::$app->db->executeQuery(self::$query);
+        return SiteBuilder::$app->db->query(self::$query);
     }
 }

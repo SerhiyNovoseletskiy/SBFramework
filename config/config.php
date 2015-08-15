@@ -1,4 +1,6 @@
 <?php
+use app\sitebuilder\Database;
+
 return [
     'siteName' => 'SB Framework',
     'language' => 'uk',
@@ -29,7 +31,7 @@ return [
         ],
         [
             'alias' => 'db',
-            'class' => 'app\sitebuilder\db\mySqlDb',
+            'class' => Database::class,
             'options' => [
                 'host' => 'localhost',
                 'user' => 'root',

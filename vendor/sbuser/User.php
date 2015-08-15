@@ -81,6 +81,8 @@ class User extends Model
 
         $user = self::where(['login' => $this->login, 'password' => $this->password]);
 
+        var_dump($user);
+
         if (count($user) == 0)
             return;
 
