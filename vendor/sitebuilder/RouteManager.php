@@ -14,6 +14,9 @@ class RouteManager
     {
         $is_found = false;
 
+        if ($url[strlen($url)-1] !== '/')
+            $url = $url . '/';
+
         if (!empty($route)) {
             foreach ($route as $pattern => $options) {
 
