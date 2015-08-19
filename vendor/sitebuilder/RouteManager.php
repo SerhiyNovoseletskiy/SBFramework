@@ -37,10 +37,9 @@ class RouteManager
                         break;
                     }
 
-                    self::getCallback($options);
-                    return self::$callback;
-                    $is_found = true;
-                    break;
+                    // If page is found
+                    if (!empty(self::$callback))
+                        return self::$callback;
                 }
             }
         }
