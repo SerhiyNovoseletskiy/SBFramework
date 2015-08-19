@@ -49,6 +49,6 @@ class Application
         $eHandler = new ErrorHandler();
         $eHandler->register();
 
-        RouteManager::route();
+        echo RouteManager::route(SiteBuilder::$app->route, $_SERVER['REQUEST_URI']);
     }
 }

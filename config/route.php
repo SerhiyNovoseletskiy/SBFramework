@@ -2,7 +2,7 @@
 
 return
     [
-        '^/(.*)' => [
+        '^/admin/(.*)' => [
             'module' => modules\Admin\AdminModule::class,
             'middleware' => [
                 app\sbuser\Module::class => [

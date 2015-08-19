@@ -140,7 +140,7 @@ abstract class ModelForm
                 <label for = "_' . $fieldName . '">' . (!(empty($field['label'])) ? $field['label'] : null) . '</label>
                 <select id = "_' . $fieldName . '" class = ' . (!empty($options['class']) ? $options['class'] : null) . ' name = "' . $fieldName . '" ' . (($field['required']) ? 'required' : null) . '>';
 
-                $html .= '<option value = "">-- Select ' . ucfirst($this->instance->tableName()) . ' --</option>';
+                $html .= '<option value = "">-- Select ' . ucfirst(call_user_func([$field['class'], 'tableName'])) . ' --</option>';
 
                 $values = call_user_func([$field['class'], 'getAll']);
 

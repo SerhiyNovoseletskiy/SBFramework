@@ -31,14 +31,18 @@ class ErrorHandler {
     }
 
     private function render($exception) {
-        if (SB_DEBUG)
-        echo new Render('errors/error', [
-            'exception' => $exception,
-            'handler' => $this
-        ]);
 
-        else
-            exit(1);
+        try {
+            echo new LayoutRender('errors/'.$exception->statusCode, [
+                'exception' => $exception,
+                'handler' => $this
+            ]);
+        } catch (\Exception $e) {
+            echo new LayoutRender('errors/error', [
+                'exception' => $exception,
+                'handler' => $this
+            ]);
+        }
     }
 
     public function htmlEncode($text)

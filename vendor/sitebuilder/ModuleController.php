@@ -23,6 +23,12 @@ class ModuleController {
         }
     }
 
+    /**
+     * @param String $view
+     * @param array $data
+     * @return string
+     * @throws NotFoundHttpException
+     */
     protected function render($view, $data = [])
     {
         if (file_exists($this->pathToView . $view . '.php')) {
@@ -61,6 +67,11 @@ class ModuleController {
         }
     }
 
+    /**
+     * @param string $view
+     * @param array $data
+     * @return Render
+     */
     protected function ajaxRender($view, $data = []) {
         return new Render($view, $data);
     }

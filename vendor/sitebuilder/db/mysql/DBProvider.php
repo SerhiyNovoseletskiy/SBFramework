@@ -12,6 +12,9 @@ use app\sitebuilder\Database;
 
 class DBProvider
 {
+    /**
+     * @var DBConnector
+     */
     private $db_connector;
 
     function __construct(DBConnector $connector)
@@ -19,6 +22,11 @@ class DBProvider
         $this->db_connector = $connector;
     }
 
+    /**
+     * @param string $query
+     * @return bool|\mysqli_result
+     * @throws \Exception
+     */
     function query($query)
     {
         if (!$this->db_connector->db)
@@ -27,6 +35,12 @@ class DBProvider
         return mysqli_query($this->db_connector->db, $query);
     }
 
+    /**
+     * @param string $query
+     * @param int $type
+     * @param string|null $class_name
+     * @return array
+     */
     function getResultQuery($query, $type, $class_name = null)
     {
         $result = [];
@@ -51,5 +65,22 @@ class DBProvider
         };
 
         return $result;
+    }
+
+    /**
+     * Функція для екранування
+     * @param string $value
+     * @return string
+     */
+    function real_escape_string($value) {
+        return mysql_real_escape_string($value);
+    }
+
+    /**
+     * Функція для отримання id останього запису
+     * @return int|string
+     */
+    function insert_id() {
+        return mysqli_insert_id($this->db_connector->db);
     }
 }

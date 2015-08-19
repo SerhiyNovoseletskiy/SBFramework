@@ -10,15 +10,14 @@ class RouteManager
     private static $callback;
     private static $params;
 
-    static function  route()
+    static function route(array $route, $url)
     {
         $is_found = false;
-        $route = SiteBuilder::$app->route;
 
         if (!empty($route)) {
             foreach ($route as $pattern => $options) {
 
-                if (preg_match_all('#' . $pattern . '#is', $_SERVER['REQUEST_URI'], self::$params, PREG_SET_ORDER)) {
+                if (preg_match_all('#' . $pattern . '#is', $url, self::$params, PREG_SET_ORDER)) {
 
 
                     self::$params = self::$params[0];
@@ -36,7 +35,7 @@ class RouteManager
                     }
 
                     self::getCallback($options);
-                    echo self::$callback;
+                    return self::$callback;
                     $is_found = true;
                     break;
                 }
@@ -116,31 +115,12 @@ class RouteManager
 
             $url = self::$params[0];
 
+
             $module = new $options['module'];
 
             $route = $module->route();
 
-            if (!empty($route)) {
-                foreach ($route as $pattern => $options) {
-
-                    if (preg_match_all('#' . $pattern . '#is', $url, self::$params, PREG_SET_ORDER)) {
-                        self::$params = self::$params[0];
-
-
-                        array_shift(self::$params);
-                        !empty($options['methodAccess']) ? $methodAccess = $options['methodAccess'] : $methodAccess = '*';
-
-                        if ($methodAccess !== '*' and !in_array($this::$app->request->method, $methodAccess)) {
-                            break;
-                        }
-
-                        self::getCallback($options);
-                        return self::$callback;
-                    }
-                }
-            }
-
-                throw new NotFoundHttpException('Page not found');
+            self::route($route, $url);
         }
     }
 }
