@@ -23,13 +23,7 @@ class Database implements Component {
 
     public function init()
     {
-        $this->dbConnector = new $this->dbConnector(
-            $this->host,
-            $this->user,
-            $this->password,
-            $this->database,
-            $this->charset
-        );
+        $this->dbConnector = new $this->dbConnector($this);
         $this->dbProvider = new $this->dbProvider($this->dbConnector);
     }
 

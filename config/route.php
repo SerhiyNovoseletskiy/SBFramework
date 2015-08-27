@@ -2,16 +2,19 @@
 
 return
     [
-        '^/admin/(.*)' => [
-            'module' => modules\Admin\AdminModule::class,
-            'middleware' => [
-                app\sbuser\Module::class => [
-                    'redirectTo' => '/admin/login',
-                    'excluded' => [
-                        '/admin/login',
-                        '/admin/sign_in'
-                    ]
-                ]
-            ]
+        '^/$' => [
+            'callback' => function() {
+                $cache = \app\sitebuilder\SiteBuilder::$app->cache;
+
+                $cats = $cache->get('cats');
+
+                if (!$cats) {
+                    $cats = \models\Category::getAll();
+                    $cache->set('cats', $cats, 10);
+                    return 'Insert into cache';
+                } else {
+                    $cache->remove('cats');
+                }
+            }
         ]
     ];

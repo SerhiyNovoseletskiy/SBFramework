@@ -14,7 +14,7 @@ class RouteManager
     {
         $is_found = false;
 
-        if ($url[strlen($url)-1] !== '/')
+        if ($url[strlen($url) - 1] !== '/')
             $url = $url . '/';
 
         if (!empty($route)) {
@@ -37,9 +37,11 @@ class RouteManager
                         break;
                     }
 
-                    // If page is found
+                    self::getCallback($options);
+
                     if (!empty(self::$callback))
                         return self::$callback;
+
                 }
             }
         }
@@ -114,15 +116,8 @@ class RouteManager
         }
 
         if (!empty($options['module'])) {
-
-            $url = self::$params[0];
-
-
             $module = new $options['module'];
-
-            $route = $module->route();
-
-            self::route($route, $url);
+            self::route($module->route(), self::$params[0]);
         }
     }
 }

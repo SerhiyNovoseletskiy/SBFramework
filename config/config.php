@@ -1,7 +1,7 @@
 <?php
+use app\cache\FileCache\Cache;
 use app\sitebuilder\Database;
 use app\sitebuilder\Request;
-use app\cache\CacheFile\Cache;
 
 return [
     'siteName' => 'SB Framework',
