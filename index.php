@@ -1,6 +1,4 @@
 <?
-
-
 use app\sitebuilder\Application;
 
 defined('SB_DEBUG') or define('SB_DEBUG', true);

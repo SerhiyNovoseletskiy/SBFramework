@@ -1,5 +1,5 @@
 angular
-    .module('sbFramework', ['ngMaterial'])
+    .module('sbFramework', ['ngMaterial','ngRoute'])
 
     .controller('SideNav', function($scope, $mdSidenav) {
         $scope.close = function () {
@@ -11,7 +11,18 @@ angular
         };
     })
 
-    .config(function($mdThemingProvider) {
+    .config(function($mdThemingProvider, $routeProvider, $locationProvider) {
         $mdThemingProvider.theme('default')
             .primaryPalette('green');
+
+        $routeProvider
+            .when('/', {
+                'templateUrl': '/views/site/main_page.html'
+            });
+
+        $locationProvider
+            .html5Mode({
+                enabled: true,
+                requireBase: false
+            });
     });
